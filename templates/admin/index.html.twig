@@ -1,0 +1,253 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block body %}
+<style>
+    /* Centering the content */
+    .example-wrapper {
+        margin: 1em auto;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        font: 18px/1.5 sans-serif;
+    }
+
+    /* Navbar styles */
+    .navbar {
+        background-color: #1F2937;
+        padding: 1rem;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .navbar .logo {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: white;
+    }
+
+    .navbar a {
+        color: white;
+        text-decoration: none;
+        margin: 0 15px;
+        font-weight: 500;
+    }
+
+    .navbar a:hover {
+        text-decoration: underline;
+    }
+
+    /* Table container for centering */
+    .table-container {
+        width: 90%;
+    }
+/* Table styles */
+  .table {
+    width: 100%; /* Full width */
+    margin-bottom: 1rem; /* Space below the table */
+    border-collapse: collapse; /* Collapse borders */
+    border-radius: 0.5rem; /* Rounded corners */
+    overflow: hidden; /* Hide overflow */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  }
+
+  .table th,
+  .table td {
+    padding: 12px; /* Padding for cells */
+    text-align: left; /* Left align text */
+    border-bottom: 1px solid #dee2e6; /* Bottom border */
+  }
+
+  .thead-dark {
+    background-color: #343a40; /* Dark background */
+    color: white; /* White text */
+  }
+
+  .thead-light {
+    background-color: #f8f9fa; /* Light background */
+    color: #212529; /* Dark text */
+  }
+
+  /* Row hover effect */
+  .table tbody tr:hover {
+    background-color: rgba(0, 123, 255, 0.1); /* Light blue on hover */
+  }
+
+  /* Responsive styling */
+  @media (max-width: 600px) {
+    .table th,
+    .table td {
+      padding: 8px; /* Reduced padding on smaller screens */
+    }
+    }
+</style>
+
+<!-- Navbar -->
+<div class="navbar">
+    <div class="logo">Admin Data Table</div>
+    <div>
+        <a href="{{ path('app_dashboard') }}">Admin</a>   
+    </div>
+</div>
+<div class="example-wrapper">
+    <div class="table-container">
+        <h2>Forms Data</h2>
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Contact Number</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if forms is not empty %}
+                    {% for form in forms %}
+                        <tr>
+                            <td>{{ form.id }}</td>
+                            <td>{{ form.name }}</td>
+                            {# <td>{{ form.contact_number }}</td> #}
+                            <td>{{ form.address }}</td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="4">No forms found.</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}
+
+
+{# {% extends 'base.html.twig' %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block body %}
+<style>
+    /* Centering the content */
+    .example-wrapper {
+        margin: 1em auto;
+        max-width: 800px;
+        width: 95%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        font: 18px/1.5 sans-serif;
+    }
+
+    /* Navbar styles */
+    .navbar {
+        background-color: #1F2937;
+        padding: 1rem;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .navbar .logo {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: white;
+    }
+
+    .navbar a {
+        color: white;
+        text-decoration: none;
+        margin: 0 15px;
+        font-weight: 500;
+    }
+
+    .navbar a:hover {
+        text-decoration: underline;
+    }
+
+    /* Table styles */
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 1rem;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 0.5rem;
+        overflow: hidden;
+    }
+
+    .table th,
+    .table td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #dee2e6;
+    }
+
+    .thead-dark {
+        background-color: #343a40;
+        color: white;
+    }
+
+    .table tbody tr:hover {
+        background-color: rgba(0, 123, 255, 0.1);
+    }
+
+    /* Responsive styling */
+    @media (max-width: 600px) {
+        .table th,
+        .table td {
+            padding: 8px;
+        }
+    }
+</style>
+
+<!-- Navbar -->
+<div class="navbar">
+    <div class="logo">Admin Data Table</div>
+    <div>
+        <a href="{{ path('app_dashboard') }}">Admin</a>   
+    </div>
+</div>
+
+<!-- Table Section -->
+<div class="example-wrapper">
+    <div>
+        <h2>Forms Data</h2>
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Contact Number</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if forms is not empty %}
+                    {% for form in forms %}
+                        <tr>
+                            <td>{{ form.id }}</td>
+                            <td>{{ form.name }}</td>
+                            <td>{{ form.address }}</td> {# Matches 'address' from entity #}
+                            {# <td>{{ form.contact_number}}</td> #}
+{# 
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="4">No forms found.</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %} #} 
